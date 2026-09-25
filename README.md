@@ -1,5 +1,7 @@
 # PharmaGuard SN — démo V1
 
+**Démo en ligne :** <https://pharmaguard-demo-v1.onrender.com/landing.html>
+
 Application de démonstration pour saisir une ordonnance et illustrer la détection d'interactions médicamenteuses. Le serveur est construit avec FastAPI et sert aussi l'interface web.
 
 > **Démonstration uniquement.** Le catalogue et les interactions de cette V1 sont des données fictives et simplifiées. Ne pas utiliser pour une décision clinique, une prescription ou une vérification réelle d'ordonnance.
