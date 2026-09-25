@@ -64,6 +64,7 @@ function switchView(viewId) {
     if (!info) return;
     document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === viewId));
     document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.id === info.nav));
+    document.querySelector(".demo-disclaimer").classList.toggle("hidden", viewId === "view-analyse");
     $("page-title").textContent = info.title;
     $("page-subtitle").textContent = info.subtitle;
 
