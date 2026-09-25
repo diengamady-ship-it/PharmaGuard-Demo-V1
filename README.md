@@ -20,3 +20,7 @@ La documentation de l'API est disponible sur <http://localhost:8000/docs>. Ferme
 - `TUTORIEL_INSTALLATION.txt` : guide d'installation complémentaire.
 
 Cette publication concerne uniquement la **V1** ; elle n'inclut pas les travaux d'une autre version du projet.
+
+## Déploiement en ligne
+
+Le fichier `render.yaml` configure un service web Render gratuit qui héberge l'interface et l'API ensemble. Le premier chargement peut être lent après une période d'inactivité. Les analyses et notifications sont séparées par session de navigateur et restent uniquement en mémoire : elles disparaissent lorsque le service redémarre ou lorsque la session expire. Ne saisissez pas de données réelles de patients dans cette démo publique.

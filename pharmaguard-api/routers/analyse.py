@@ -1,13 +1,11 @@
 from datetime import datetime
 from itertools import combinations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from data.demo_db import (
-    HISTORIQUE_ANALYSES,
     INTERACTIONS_DB,
     MEDICAMENTS_DB,
-    NOTIFICATIONS,
     next_analyse_id,
     next_notif_id,
 )
@@ -29,7 +27,7 @@ _INDEX = {frozenset((i["molecule_a"], i["molecule_b"])): i for i in INTERACTIONS
 
 
 @router.post("/analyse", response_model=AnalyseResponse)
-def analyser_ordonnance(ordonnance: OrdonnanceRequest):
+def analyser_ordonnance(ordonnance: OrdonnanceRequest, request: Request):
     # 1. Résoudre chaque saisie en médicament connu (sans doublon)
     cles, non_reconnus = [], []
     for med in ordonnance.medicaments:
@@ -72,12 +70,12 @@ def analyser_ordonnance(ordonnance: OrdonnanceRequest):
         interactions=interactions,
         message=MESSAGES[niveau_max],
     )
-    HISTORIQUE_ANALYSES.append(resultat.model_dump())
+    request.state.demo_session["historique"].append(resultat.model_dump())
 
     # 4. Notification pour chaque interaction de niveau 3 ou 4
     for inter in interactions:
         if inter.niveau >= 3:
-            NOTIFICATIONS.append({
+            request.state.demo_session["notifications"].append({
                 "id": next_notif_id(),
                 "type": "alerte",
                 "titre": inter.label,

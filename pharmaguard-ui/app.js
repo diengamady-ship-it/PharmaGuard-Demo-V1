@@ -1,6 +1,6 @@
 // PharmaGuard SN — interface de l'application
-// Servie par l'API (port 8000) : chemin relatif. Ouverte autrement : on vise localhost:8000.
-const API_BASE = location.port === "8000" ? "/api/v1" : "http://localhost:8000/api/v1";
+// L'interface et l'API sont servies par la même origine, en local comme en ligne.
+const API_BASE = location.protocol === "file:" ? "http://localhost:8000/api/v1" : "/api/v1";
 
 const NIVEAUX = {
     0: { label: "Aucune interaction", court: "Aucune", badge: "badge-green", icon: "fa-shield-halved" },
@@ -36,7 +36,7 @@ async function api(path, options = {}) {
         });
     } catch {
         setApiStatus(false);
-        throw new Error("Serveur injoignable. Lancez START_DEMO.bat.");
+        throw new Error("Serveur injoignable. Réessayez dans un instant ou vérifiez que la démo est démarrée.");
     }
     setApiStatus(true);
     const data = await response.json().catch(() => null);
@@ -56,7 +56,7 @@ function setApiStatus(ok) {
 const VIEWS = {
     "view-dashboard": { nav: "nav-dashboard", title: "Tableau de bord", subtitle: "Vue d'ensemble des analyses" },
     "view-analyse": { nav: "nav-analyse", title: "Nouvelle analyse", subtitle: "Saisie et vérification d'une ordonnance" },
-    "view-historique": { nav: "nav-historique", title: "Historique", subtitle: "Analyses enregistrées depuis le démarrage du serveur" },
+    "view-historique": { nav: "nav-historique", title: "Historique", subtitle: "Analyses de votre session de démonstration" },
 };
 
 function switchView(viewId) {

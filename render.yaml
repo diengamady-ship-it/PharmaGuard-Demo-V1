@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: pharmaguard-demo-v1
+    runtime: python
+    plan: free
+    buildCommand: pip install -r pharmaguard-api/requirements.txt
+    startCommand: cd pharmaguard-api && uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/status
+    autoDeployTrigger: commit

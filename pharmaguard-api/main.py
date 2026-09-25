@@ -1,11 +1,12 @@
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Request
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from routers import analyse, historique, medicaments
+from services.sessions import get_or_create_session
 
 UI_DIR = Path(__file__).resolve().parent.parent / "pharmaguard-ui"
 
@@ -15,13 +16,17 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Utile seulement si l'interface est ouverte depuis une autre origine (file://, autre port)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@app.middleware("http")
+async def demo_session(request: Request, call_next):
+    session_id, session, created = get_or_create_session(request.cookies.get("pg_demo_session"))
+    request.state.demo_session = session
+    response = await call_next(request)
+    if created:
+        response.set_cookie(
+            "pg_demo_session", session_id, httponly=True, samesite="lax",
+            secure=request.headers.get("x-forwarded-proto", request.url.scheme) == "https",
+        )
+    return response
 
 app.include_router(analyse.router, prefix="/api/v1", tags=["Analyse"])
 app.include_router(medicaments.router, prefix="/api/v1", tags=["Médicaments"])

@@ -98,7 +98,7 @@ MEDICAMENTS_DB = {
     },
 }
 
-# Matrice d'interactions (simplifiée, inspirée des référentiels cités dans "source")
+# Matrice d'interactions fictive : aucune validation par un référentiel clinique.
 INTERACTIONS_DB = [
     {
         "molecule_a": "acide_acetylsalicylique",
@@ -108,7 +108,7 @@ INTERACTIONS_DB = [
         "couleur": "red",
         "mecanisme": "L'aspirine inhibe l'agrégation plaquettaire et potentialise l'effet anticoagulant de l'acénocoumarol → risque hémorragique majeur.",
         "conduite": "Association contre-indiquée. Contacter le prescripteur immédiatement.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "ibuprofene",
@@ -118,7 +118,7 @@ INTERACTIONS_DB = [
         "couleur": "orange",
         "mecanisme": "Les AINS augmentent le risque hémorragique avec les AVK par inhibition des prostaglandines gastroprotectrices.",
         "conduite": "Éviter l'association. Substituer par Paracétamol.",
-        "source": "Martindale 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "ibuprofene",
@@ -128,7 +128,7 @@ INTERACTIONS_DB = [
         "couleur": "amber",
         "mecanisme": "Les AINS réduisent l'effet antihypertenseur des IEC. Risque d'insuffisance rénale aiguë.",
         "conduite": "Surveiller la PA et la fonction rénale. Limiter la durée du traitement AINS.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "metformine",
@@ -138,7 +138,7 @@ INTERACTIONS_DB = [
         "couleur": "blue",
         "mecanisme": "Les IEC peuvent provoquer une légère hypoglycémie par augmentation de la sensibilité à l'insuline.",
         "conduite": "Surveiller la glycémie en début de traitement combiné.",
-        "source": "Martindale 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "ciprofloxacine",
@@ -148,7 +148,7 @@ INTERACTIONS_DB = [
         "couleur": "orange",
         "mecanisme": "Les fluoroquinolones perturbent la régulation glycémique. Risque d'hypoglycémie sévère ou d'hyperglycémie chez les patients sous metformine.",
         "conduite": "Éviter si possible. Si nécessaire, renforcer l'autosurveillance glycémique.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "prednisolone",
@@ -158,7 +158,7 @@ INTERACTIONS_DB = [
         "couleur": "amber",
         "mecanisme": "Les corticoïdes induisent une hyperglycémie dose-dépendante qui antagonise l'effet de la metformine.",
         "conduite": "Renforcer la surveillance glycémique, adapter la posologie de metformine si cure > 10 jours.",
-        "source": "Martindale 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "furosemide",
@@ -168,7 +168,7 @@ INTERACTIONS_DB = [
         "couleur": "amber",
         "mecanisme": "Risque d'hypotension artérielle brutale à l'initiation du traitement par IEC chez le patient sous diurétique.",
         "conduite": "Débuter l'IEC à faible dose. Arrêter le diurétique 2-3 jours avant si possible.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "ibuprofene",
@@ -178,7 +178,7 @@ INTERACTIONS_DB = [
         "couleur": "amber",
         "mecanisme": "Les AINS réduisent l'effet diurétique et augmentent le risque d'insuffisance rénale fonctionnelle.",
         "conduite": "Hydrater le patient, surveiller la fonction rénale.",
-        "source": "Martindale 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "omeprazole",
@@ -188,7 +188,7 @@ INTERACTIONS_DB = [
         "couleur": "blue",
         "mecanisme": "Interaction pharmacocinétique mineure (transporteurs rénaux) sans conséquence clinique habituelle.",
         "conduite": "Aucune action requise en pratique courante, simple surveillance.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "prednisolone",
@@ -198,7 +198,7 @@ INTERACTIONS_DB = [
         "couleur": "orange",
         "mecanisme": "Majoration du risque hémorragique digestif.",
         "conduite": "Contre-indiqué si antécédent d'ulcère. Associer un IPP si absolument nécessaire.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "diazepam",
@@ -208,7 +208,7 @@ INTERACTIONS_DB = [
         "couleur": "amber",
         "mecanisme": "L'oméprazole inhibe le CYP2C19 et ralentit le métabolisme du diazépam, augmentant sa concentration plasmatique et ses effets sédatifs.",
         "conduite": "Réduire la posologie du diazépam. Surveiller la somnolence.",
-        "source": "Martindale 2024"
+        "source": "Simulation fictive — non validée"
     },
     {
         "molecule_a": "ibuprofene",
@@ -218,7 +218,7 @@ INTERACTIONS_DB = [
         "couleur": "orange",
         "mecanisme": "L'association AINS + corticoïdes majore considérablement le risque de toxicité gastro-intestinale (ulcères, perforations).",
         "conduite": "Éviter l'association. Si indispensable, protéger avec un IPP.",
-        "source": "Vidal 2024"
+        "source": "Simulation fictive — non validée"
     },
 ]
 
