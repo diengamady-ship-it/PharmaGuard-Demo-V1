@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaGuard SN</title>
+    <meta name="description"
+        content="PharmaGuard SN : démonstration d'un outil de détection des interactions médicamenteuses pour l'officine.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="landing.css">
+</head>
+
+<body class="liquid-glass">
+
+    <!-- Animated Background -->
+    <div class="bg-mesh" id="bg-mesh">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="bg-orb bg-orb-4"></div>
+    </div>
+    <div class="bg-grain"></div>
+
+    <!-- Top Bar -->
+    <div class="top-bar" id="top-bar">
+        <a href="#top" class="top-bar-logo">
+            <i class="fa-solid fa-capsules"></i>
+            PharmaGuard SN
+        </a>
+        <div class="top-bar-actions">
+            <div class="theme-toggle" id="theme-toggle">
+                <span class="toggle-option" data-mode="simple" onclick="setTheme('simple')">
+                    <i class="fa-solid fa-sun"></i> Clair
+                </span>
+                <span class="toggle-option active" data-mode="glass" onclick="setTheme('glass')">
+                    <i class="fa-solid fa-moon"></i> Sombre
+                </span>
+            </div>
+            <a href="index.html" class="btn-enter-app">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Entrer dans l'app
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="landing-section hero-section" id="top">
+        <div class="hero-pill">
+            <i class="fa-solid fa-flask"></i>
+            Démonstration
+        </div>
+
+        <h1 class="hero-title">
+            Repérer les interactions<br>
+            <span class="gradient-text">d'une ordonnance</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Saisissez une ordonnance : chaque paire de médicaments est comparée à une table
+            d'interactions classées en 4 niveaux de gravité, avec la conduite à tenir.
+        </p>
+
+        <div class="hero-cta-group">
+            <a href="index.html" class="btn-glass btn-glass-primary">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                Lancer une analyse
+            </a>
+            <a href="#features" class="btn-glass btn-glass-secondary">
+                <i class="fa-solid fa-chevron-down"></i>
+                Découvrir
+            </a>
+        </div>
+
+        <!-- Hero Mockup -->
+        <div class="hero-visual">
+            <div class="hero-mockup glass-card" id="hero-mockup">
+                <div class="hero-mockup-bar">
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                </div>
+                <div class="mockup-content">
+                    <div class="mockup-sidebar">
+                        <div class="mockup-sidebar-item active">
+                            <i class="fa-solid fa-chart-pie"></i> Dashboard
+                        </div>
+                        <div class="mockup-sidebar-item">
+                            <i class="fa-solid fa-microscope"></i> Analyse
+                        </div>
+                        <div class="mockup-sidebar-item">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Historique
+                        </div>
+                    </div>
+                    <div class="mockup-main">
+                        <div class="mockup-stat-row">
+                            <div class="mockup-stat">
+                                <div class="mockup-stat-num">3</div>
+                                <div class="mockup-stat-label">Analyses</div>
+                            </div>
+                            <div class="mockup-stat">
+                                <div class="mockup-stat-num">2</div>
+                                <div class="mockup-stat-label">Alertes</div>
+                            </div>
+                            <div class="mockup-stat">
+                                <div class="mockup-stat-num">15</div>
+                                <div class="mockup-stat-label">Médicaments</div>
+                            </div>
+                        </div>
+                        <div class="mockup-alert">
+                            <strong>Contre-indication</strong> — Aspirine × Acénocoumarol<br>
+                            Risque hémorragique majeur • Source : Vidal 2024
+                        </div>
+                        <div class="mockup-alert"
+                            style="border-left-color: var(--lg-orange); background: rgba(251,146,60,0.06); border-color: rgba(251,146,60,0.12);">
+                            <strong style="color: var(--lg-orange);">Déconseillée</strong> — Ibuprofène ×
+                            Acénocoumarol<br>
+                            Risque hémorragique majoré • Source : Martindale 2024
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="landing-section features-section" id="features">
+        <span class="section-label scroll-reveal">Fonctionnalités</span>
+        <h2 class="section-title scroll-reveal scroll-reveal-delay-1">
+            Ce que fait la démo
+        </h2>
+        <p class="section-desc scroll-reveal scroll-reveal-delay-2">
+            Toutes les paires de médicaments de l'ordonnance sont vérifiées, puis triées de la plus grave à la moins grave.
+        </p>
+
+        <div class="features-grid">
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-1">
+                <div class="feature-icon feature-icon-blue">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                </div>
+                <h3>Analyse par paires</h3>
+                <p>Chaque médicament est comparé à tous les autres, qu'il soit saisi par son nom commercial ou sa DCI.
+                </p>
+            </div>
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-2">
+                <div class="feature-icon feature-icon-violet">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h3>4 niveaux de gravité</h3>
+                <p>Information, précaution d'emploi, association déconseillée, contre-indication.
+                </p>
+            </div>
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-3">
+                <div class="feature-icon feature-icon-cyan">
+                    <i class="fa-solid fa-book-medical"></i>
+                </div>
+                <h3>Mécanisme et conduite</h3>
+                <p>Chaque alerte explique le mécanisme de l'interaction et indique la conduite à tenir.
+                </p>
+            </div>
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-1">
+                <div class="feature-icon feature-icon-green">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h3>Historique</h3>
+                <p>Les analyses de la session sont conservées avec le patient, les médicaments et les alertes.
+                </p>
+            </div>
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-2">
+                <div class="feature-icon feature-icon-pink">
+                    <i class="fa-solid fa-file-pdf"></i>
+                </div>
+                <h3>Impression</h3>
+                <p>Rapport d'analyse et fiche d'interaction imprimables ou enregistrables en PDF depuis le navigateur.</p>
+            </div>
+            <div class="glass-card feature-card scroll-reveal scroll-reveal-delay-3">
+                <div class="feature-icon feature-icon-orange">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <h3>Notifications</h3>
+                <p>Une notification est créée pour chaque interaction de niveau 3 ou 4.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS SECTION ===== -->
+    <section class="landing-section stats-section">
+        <span class="section-label scroll-reveal">Base de démo</span>
+        <h2 class="section-title scroll-reveal scroll-reveal-delay-1">
+            Contenu de la base
+        </h2>
+
+        <div class="stats-row">
+            <div class="glass-card stat-glass scroll-reveal scroll-reveal-delay-1">
+                <div class="stat-glass-num" data-target="15">0</div>
+                <div class="stat-glass-label">Médicaments</div>
+            </div>
+            <div class="glass-card stat-glass scroll-reveal scroll-reveal-delay-2">
+                <div class="stat-glass-num" data-target="12">0</div>
+                <div class="stat-glass-label">Interactions référencées</div>
+            </div>
+            <div class="glass-card stat-glass scroll-reveal scroll-reveal-delay-3">
+                <div class="stat-glass-num" data-target="4">0</div>
+                <div class="stat-glass-label">Niveaux d'alerte</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOURCES SECTION ===== -->
+    <section class="landing-section sources-section">
+        <span class="section-label scroll-reveal">Limites</span>
+        <h2 class="section-title scroll-reveal scroll-reveal-delay-1">
+            À savoir avant de présenter
+        </h2>
+        <p class="section-desc scroll-reveal scroll-reveal-delay-2" style="margin-left: auto; margin-right: auto;">
+            Cette version sert à montrer le fonctionnement de l'outil, pas à sécuriser de vraies ordonnances.
+        </p>
+
+        <div class="sources-grid">
+            <div class="glass-card source-card scroll-reveal scroll-reveal-delay-1">
+                <div class="source-card-icon">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <h3>Données simplifiées</h3>
+                <p>Les 12 fiches d'interaction sont rédigées de façon résumée et citent Vidal ou Martindale
+                    à titre indicatif. Elles n'ont pas été validées par un pharmacien.</p>
+            </div>
+            <div class="glass-card source-card scroll-reveal scroll-reveal-delay-2">
+                <div class="source-card-icon" style="background: rgba(167,139,250,0.1); color: var(--lg-violet);">
+                    <i class="fa-solid fa-hospital"></i>
+                </div>
+                <h3>Pour un usage réel</h3>
+                <p>Il faudrait brancher l'outil sur une base officielle et à jour (Thésaurus des interactions
+                    de l'ANSM, base médicament sous licence) et tenir compte des doses.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="landing-section cta-section">
+        <div class="glass-card cta-glass scroll-reveal">
+            <h2>Essayer la démo</h2>
+            <p>Scénario conseillé : Kardégic, Sintrom, Brufen, Metformine EG et Lisinopril Arrow.</p>
+            <a href="index.html" class="btn-glass btn-glass-primary">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Ouvrir l'application
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <p>PharmaGuard SN — démonstration, données fictives. Ne pas utiliser pour une décision clinique.</p>
+    </footer>
+
+    <script src="landing.js"></script>
+</body>
+
+</html>

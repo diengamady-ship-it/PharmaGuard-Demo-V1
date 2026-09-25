@@ -1,0 +1,36 @@
+==================================================
+PHARMAGUARD SN - INSTALLATION ET LANCEMENT
+==================================================
+
+1. PREREQUIS
+   - Windows 10 ou 11.
+   - Python 3.10 ou plus recent : https://www.python.org/downloads/
+     Pendant l'installation, cochez "Add python.exe to PATH".
+   - Une connexion Internet pour l'installation (et pour les icones et la police de l'interface).
+
+2. INSTALLATION (une seule fois)
+   - Double-cliquez sur INSTALL_DEMO.bat.
+   - Le script cree l'environnement Python (dossier pharmaguard-api\venv)
+     et installe FastAPI et Uvicorn.
+   - Attendez le message "Installation terminee", puis appuyez sur une touche.
+
+3. LANCEMENT
+   - Double-cliquez sur START_DEMO.bat.
+   - Une fenetre "PharmaGuard SN - Serveur" s'ouvre (port 8000) : elle sert l'API ET l'interface.
+   - Le navigateur s'ouvre sur http://localhost:8000/landing.html
+   - Laissez la fenetre ouverte pendant la demo et NE CLIQUEZ PAS dedans
+     (un clic dans une fenetre noire met le programme en pause ; Echap pour reprendre).
+   - Fermez-la pour tout arreter.
+
+4. EN CAS DE PROBLEME
+   - Page qui charge a l'infini : cliquez dans la fenetre du serveur et appuyez sur Echap,
+     ou fermez toutes les fenetres noires et relancez START_DEMO.bat.
+   - Bandeau rouge "Le serveur ne repond pas" : regardez la fenetre du serveur.
+     Erreur de dependances -> relancez INSTALL_DEMO.bat.
+   - "Address already in use" : une ancienne fenetre tourne encore, fermez-la.
+   - Test rapide de l'API : pharmaguard-api\test_api.bat (serveur lance).
+
+5. QUOI MONTRER
+   - Voir SCENARIOS_DEMO.md.
+
+Rappel : donnees fictives et simplifiees, a ne pas utiliser pour une decision clinique.

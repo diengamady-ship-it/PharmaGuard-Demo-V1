@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaGuard SN — Démo</title>
+    <meta name="description"
+        content="PharmaGuard SN : démonstration de détection des interactions médicamenteuses">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-capsules"></i></div>
+                <span>PharmaGuard <span class="accent">SN</span></span>
+            </div>
+            <nav>
+                <a href="landing.html" class="nav-item" id="nav-accueil">
+                    <i class="fa-solid fa-house"></i>
+                    Accueil
+                </a>
+                <a href="#" class="nav-item active" id="nav-dashboard" data-view="view-dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Tableau de bord
+                </a>
+                <a href="#" class="nav-item" id="nav-analyse" data-view="view-analyse">
+                    <i class="fa-solid fa-microscope"></i>
+                    Nouvelle analyse
+                </a>
+                <a href="#" class="nav-item" id="nav-historique" data-view="view-historique">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Historique
+                </a>
+            </nav>
+            <p class="demo-disclaimer"><i class="fa-solid fa-flask"></i> Version de démonstration. Données fictives et simplifiées : ne pas utiliser pour une décision clinique.</p>
+            <div class="user-profile">
+                <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="user-info">
+                    <strong>Dr. Awa Ndiaye</strong>
+                    <span>Pharmacienne</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="header-left">
+                    <h1 id="page-title">Tableau de bord</h1>
+                    <p class="subtitle" id="page-subtitle">Vue d'ensemble des analyses</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="global-search" placeholder="Rechercher patient, DCI..."
+                            autocomplete="off">
+                        <div id="search-results-dropdown" class="search-dropdown"></div>
+                    </div>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notif-btn" onclick="toggleNotifications()">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="notif-badge" id="notif-badge">0</span>
+                        </button>
+                        <div id="notif-dropdown" class="notif-dropdown hidden">
+                            <div class="notif-dropdown-header">
+                                <h4>Notifications</h4>
+                                <button class="btn-link" id="btn-mark-all-read"
+                                    onclick="markAllNotificationsRead()">Tout marquer comme lu</button>
+                            </div>
+                            <div id="notif-list" class="notif-list">
+                                <p class="empty-notif">Aucune notification</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="api-banner" class="api-banner hidden">
+                <i class="fa-solid fa-plug-circle-xmark"></i>
+                Le serveur ne répond pas. Lancez <code>START_DEMO.bat</code> puis rechargez la page.
+            </div>
+
+            <!-- Views Container -->
+            <div id="views-container">
+                <!-- VIEW 1: Dashboard -->
+                <section id="view-dashboard" class="view active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fa-solid fa-file-prescription"></i></div>
+                            <div class="stat-details">
+                                <p class="stat-label">Analyses enregistrées</p>
+                                <h3 class="stat-number" id="stat-analyses">-</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="stat-details">
+                                <p class="stat-label">Interactions majeures (niv. 3–4)</p>
+                                <h3 class="stat-number" id="stat-interactions">-</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="stat-details">
+                                <p class="stat-label">Ordonnances sans risque notable</p>
+                                <h3 class="stat-number" id="stat-securisees">-</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <div class="card recent-analyses-card">
+                            <div class="section-header">
+                                <h2>Analyses récentes</h2>
+                                <button class="btn btn-primary" id="btn-new-analyse"
+                                    onclick="switchView('view-analyse')">
+                                    <i class="fa-solid fa-plus"></i> Nouvelle analyse
+                                </button>
+                            </div>
+                            <div class="recent-list" id="recent-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: Nouvelle Analyse -->
+                <section id="view-analyse" class="view">
+                    <div class="analyse-layout">
+                        <!-- Left Panel: Input -->
+                        <div class="input-panel">
+                            <div class="card patient-card">
+                                <h2><i class="fa-regular fa-id-card"></i> 1. Patient</h2>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="patient-name">Nom</label>
+                                        <input type="text" id="patient-name" placeholder="Ex: Moussa Diallo">
+                                    </div>
+                                    <div class="form-group age-group">
+                                        <label for="patient-age">Âge</label>
+                                        <input type="number" id="patient-age" placeholder="Ex: 58" min="0" max="130">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card meds-card">
+                                <h2><i class="fa-solid fa-prescription-bottle-medical"></i> 2. Ordonnance</h2>
+                                <div class="meds-search-box">
+                                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                    <input type="text" id="meds-input"
+                                        placeholder="Nom commercial ou DCI (ex : Sintrom, ibuprofène)"
+                                        autocomplete="off">
+                                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                                </div>
+
+                                <div class="meds-list-container">
+                                    <p class="empty-state" id="empty-meds">Aucun médicament ajouté. Tapez au moins 2 lettres puis choisissez dans la liste.</p>
+                                    <div id="meds-list" class="meds-list"></div>
+                                </div>
+
+                                <button id="btn-analyser" class="btn btn-primary btn-large btn-block" disabled>
+                                    <i class="fa-solid fa-magnifying-glass-chart"></i> Analyser l'ordonnance
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Results -->
+                        <div class="results-panel">
+                            <div id="initial-state" class="state-container">
+                                <div class="illustration"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+                                <h3>Aucune analyse en cours</h3>
+                                <p>Ajoutez les médicaments de l'ordonnance : chaque paire sera comparée à la table d'interactions.</p>
+                            </div>
+
+                            <!-- Loader -->
+                            <div id="loader" class="state-container hidden">
+                                <div class="spinner"></div>
+                                <h3>Analyse en cours…</h3>
+                            </div>
+
+                            <!-- Résultats -->
+                            <div id="results-container" class="results-content hidden">
+                                <div class="results-header">
+                                    <h2 id="results-title">Interactions détectées</h2>
+                                    <div class="results-actions">
+                                        <button class="btn btn-ghost btn-sm" id="btn-reset" onclick="resetAnalyse()">
+                                            <i class="fa-solid fa-rotate-left"></i> Nouvelle ordonnance
+                                        </button>
+                                        <button class="btn btn-outline btn-sm" id="btn-export" onclick="exportResultsPDF()">
+                                            <i class="fa-solid fa-print"></i> Imprimer / PDF
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div id="alerts-list" class="alerts-list">
+                                    <!-- Alertes injectées ici -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 3: Historique -->
+                <section id="view-historique" class="view">
+                    <div class="historique-container">
+                        <div class="section-header">
+                            <h2><i class="fa-solid fa-clock-rotate-left"></i> Historique des analyses</h2>
+                            <div class="historique-filters">
+                                <div class="search-bar search-bar-sm">
+                                    <i class="fa-solid fa-search"></i>
+                                    <input type="text" id="historique-search" placeholder="Filtrer par patient ou médicament"
+                                        oninput="filterHistorique()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="historique-table-wrapper">
+                                <table class="historique-table" id="historique-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient</th>
+                                            <th>Date</th>
+                                            <th>Médicaments</th>
+                                            <th>Interactions</th>
+                                            <th>Niveau Max</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="historique-tbody">
+                                        <!-- Populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="historique-empty" class="empty-state-full hidden">
+                                <i class="fa-solid fa-inbox"></i>
+                                <p>Aucune analyse ne correspond</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Detail Interaction -->
+    <div id="interaction-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header" id="modal-header">
+                <i class="fa-solid fa-triangle-exclamation" id="modal-icon"></i>
+                <h3 id="modal-title"></h3>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="molecule-pair">
+                    <span id="modal-mol-a" class="mol"></span>
+                    <span class="cross-icon">×</span>
+                    <span id="modal-mol-b" class="mol"></span>
+                </div>
+
+                <div class="modal-section">
+                    <h4><i class="fa-solid fa-microscope"></i> Mécanisme</h4>
+                    <p id="modal-meca"></p>
+                </div>
+
+                <div class="modal-section alert-section" id="modal-conduite-box">
+                    <h4><i class="fa-solid fa-stethoscope"></i> Conduite à tenir</h4>
+                    <p id="modal-conduite"></p>
+                </div>
+
+                <div class="modal-source">
+                    <i class="fa-solid fa-book-medical"></i> Source : <span id="modal-source-text"
+                        class="source-badge"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal()">Fermer</button>
+                <button class="btn btn-primary" id="btn-print-fiche" onclick="printInteractionFiche()"><i
+                        class="fa-solid fa-print"></i> Imprimer la fiche</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Analyse (Historique) -->
+    <div id="analyse-detail-modal" class="modal-overlay hidden">
+        <div class="modal modal-large">
+            <div class="modal-header modal-header-blue">
+                <i class="fa-solid fa-file-medical"></i>
+                <h3 id="analyse-modal-title">Détail de l'analyse</h3>
+                <button class="btn-close" onclick="closeAnalyseModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="analyse-detail-grid">
+                    <div class="detail-item">
+                        <label>Patient</label>
+                        <strong id="detail-patient"></strong>
+                    </div>
+                    <div class="detail-item">
+                        <label for="patient-age">Âge</label>
+                        <strong id="detail-age"></strong>
+                    </div>
+                    <div class="detail-item">
+                        <label>Date</label>
+                        <strong id="detail-date"></strong>
+                    </div>
+                    <div class="detail-item">
+                        <label>Niveau max</label>
+                        <strong id="detail-niveau"></strong>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h4><i class="fa-solid fa-pills"></i> Médicaments prescrits</h4>
+                    <div id="detail-meds-list" class="detail-meds-tags"></div>
+                </div>
+                <div class="detail-section">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Interactions détectées</h4>
+                    <div id="detail-interactions-list" class="alerts-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeAnalyseModal()">Fermer</button>
+                <button class="btn btn-primary" onclick="printAnalyseDetail()"><i class="fa-solid fa-print"></i>
+                    Imprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu injecté uniquement au moment de l'impression -->
+    <div id="print-container" class="print-only"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
